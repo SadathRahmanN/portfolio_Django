@@ -1,0 +1,21 @@
+{% extends "profiles/base.html" %}
+
+{% block title %}Project Showcase{% endblock %}
+
+{% block content %}
+    <h2>Your Projects</h2>
+    {% if projects %}
+        <ul>
+            {% for project in projects %}
+                <li>
+                    <h4>{{ project.title }}</h4>
+                    <p>{{ project.description }}</p>
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" style="max-width: 200px;">
+                    <a href="{{ project.link }}" target="_blank">View Project</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not added any projects yet.</p>
+    {% endif %}
+{% endblock %}

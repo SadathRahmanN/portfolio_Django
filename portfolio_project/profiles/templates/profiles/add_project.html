@@ -1,0 +1,12 @@
+{% extends "profiles/base.html" %}
+
+{% block title %}Add Project{% endblock %}
+
+{% block content %}
+    <h2>Add New Project</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ project_form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Project</button>
+    </form>
+{% endblock %}

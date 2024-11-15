@@ -7,13 +7,35 @@
     <div class="card-body">
         <h3 class="card-title text-center mb-4">{{ user.username }}'s Profile</h3>
         <p><strong>Email:</strong> {{ user.email }}</p>
+
         {% if user.profile %}
             <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
             <p><strong>Skills:</strong> {{ user.profile.skills }}</p>
             <p><strong>Contact Info:</strong> {{ user.profile.contact_info }}</p>
+
+            <!-- Add Edit Profile Form -->
+            <h5 class="mt-4">Edit Profile</h5>
+            <form method="post">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+
         {% else %}
-            <p>You have not set up your profile details yet.</p>
+            <p>You have not set up your profile details yet. <a href="{% url 'profile' %}">Create your profile</a>.</p>
         {% endif %}
+
+        <h4 class="mt-4">Your Portfolio Projects</h4>
+        <ul class="list-group">
+            {% for project in user.project_set.all %}
+                <li class="list-group-item">
+                    <strong>{{ project.title }}</strong><br>
+                    <p>{{ project.description }}</p>
+                    <a href="{{ project.link }}" target="_blank">View Project</a>
+                </li>
+            {% endfor %}
+        </ul>
+        
         <div class="text-center mt-4">
             <a class="btn btn-secondary" href="{% url 'logout' %}">Logout</a>
         </div>
